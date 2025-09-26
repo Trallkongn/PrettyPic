@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts" setup>
+import router from "@/router";
 import { ref, onMounted, onUnmounted } from "vue";
 
 // interface Props {
@@ -37,6 +38,7 @@ const handleMouseEnter = () => (isHovered.value = true);
 const handleMouseLeave = () => (isHovered.value = false);
 const handleClick = () => {
   emit("click");
+  router.push("/Msg");
   // 这里可以添加点击后的逻辑，比如播放音效
 };
 

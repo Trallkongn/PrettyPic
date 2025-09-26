@@ -27,7 +27,12 @@
         <div class="info-item">
           <label>实名认证：</label>
           <span>{{ user.verified ? '已认证' : '未认证' }}</span>
-          <button v-if="!user.verified" @click="onVerify">去认证</button>
+          <button style="margin-left: 5px;" v-if="!user.verified" @click="onVerify">去认证</button>
+        </div>
+        <!-- 添加管理员入口 -->
+        <div v-if="user.isAdmin" class="info-item">
+          <label>管理员入口：</label>
+          <button @click="goToAdminPage">进入管理页面</button>
         </div>
       </div>
       <button class="save-btn" @click="onSave">保存修改</button>
@@ -78,15 +83,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
+
+const router = useRouter()
 
 const user = ref({
   avatar: 'https://img.icons8.com/ios-filled/100/camera.png',
   nickname: '摄影小白',
   phone: '138****8888',
   email: 'user@example.com',
-  verified: false
+  verified: false,
+  // 添加管理员标识
+  isAdmin: true
 })
 
 const onSave = () => {
@@ -110,6 +120,10 @@ const onAvatarChange = (e: Event) => {
 const triggerAvatarUpload = () => {
   const input = document.querySelector('.avatar-upload') as HTMLInputElement
   if (input) input.click()
+}
+
+const goToAdminPage = () => {
+  router.push('/admin')
 }
 
 const orders = ref([
@@ -193,6 +207,7 @@ const blogs = ref([
   align-items: center;
   min-width: 260px;
   margin-bottom: 0.7rem;
+  font-size: 15px;
 }
 
 .info-item label {

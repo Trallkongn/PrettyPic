@@ -3,11 +3,10 @@
     <div class="navbar-left">
       <span class="welcome">欢迎来到PrettyPic拍照门户</span>
       <nav>
-        <a href="#">首页</a>
-        <a href="#">社区</a>
-        <a href="#">产品</a>
-        <a href="#">帮助</a>
-        <a href="#">联系我们</a>
+        <router-link to="/HomePage">首页</router-link>
+        <router-link to="/Community">社区</router-link>
+        <router-link to="/Product">产品</router-link>
+        <router-link to="/Help">帮助</router-link>
       </nav>
     </div>
     <div class="navbar-right">
@@ -20,8 +19,10 @@
       <template v-else>
         <div class="user-info-bar">
           <BellButton />
-          <img class="user-avatar" :src="user.avatar" alt="用户头像" />
-          <span class="user-nickname">{{ user.nickname }}</span>
+          <RouterLink to="/User" style="display: flex; align-items: center; gap: 0.5rem;">
+            <img class="user-avatar" :src="user.avatar" alt="用户头像" />
+            <span class="user-nickname">{{ user.nickname }}</span>
+          </RouterLink>
         </div>
       </template>
     </div>
@@ -126,6 +127,12 @@ watch(showRegister, async (val) => {
 
 .navbar-left nav a:hover {
   color: #ff9800;
+}
+
+/* 添加激活状态的样式 */
+.navbar-left nav a.router-link-exact-active {
+  color: #ff9800;
+  font-weight: bold;
 }
 
 .navbar-right button {
