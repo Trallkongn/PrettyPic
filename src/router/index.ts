@@ -8,6 +8,7 @@ import MsgPage from '@/views/message/MsgPage.vue'
 import UserPage from '@/views/user/UserPage.vue'
 import AdminPage from '@/views/admin/AdminPage.vue'
 import BlogPage from '@/views/blog/BlogPage.vue'
+import TradePage from '@/views/trade/TradePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,6 +56,11 @@ const router = createRouter({
       path: '/BlogPage',
       name: 'BlogPage',
       component: BlogPage,
+    },
+    {
+      path: '/Trade',
+      name: 'Trade',
+      component: TradePage,
     },
   ],
 })

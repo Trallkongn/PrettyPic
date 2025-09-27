@@ -56,9 +56,11 @@ const blogs = ref([
 // 业务区点击事件（可扩展）
 const onQuickShot = () => {
   // TODO: 跳转或弹窗
+  window.open('/Trade', '_blank');
 }
 const onCustomize = () => {
   // TODO: 跳转或弹窗
+  window.open('/Trade', '_blank');
 }
 </script>
 

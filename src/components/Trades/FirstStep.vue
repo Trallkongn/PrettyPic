@@ -1,147 +1,107 @@
-<script lang="ts" setup>
-import { useRouter } from 'vue-router'
+<template>
+  <div class="FirstStepContainer">
+    <h1>第一步</h1>
+    <h2>请选择服务类型</h2>
+    <div class="button-group">
+      <button v-for="(type, idx) in ServiceTypes" :key="idx" :style="[type.buttonPos, type.size || '']"
+        @click="chooseType(type)">
+        {{ type.label }}
+      </button>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
 import { ref } from 'vue'
+import type { ServiceType } from '@/types/trade.ts'
 
-const prop = withDefaults(
-  defineProps<{
-    gap: string | number //选择框中间间隙
-    width: string | number //选择框宽度
-  }>(),
+
+const ServiceTypes = ref([
   {
-    gap: '8',
-    width: '210'
-  }
-)
+    label: '个人写真',
+    buttonPos: 'top: 30%; left: 15%; background-color: blue;',
+    size: 'width: 120px; height: 120px;'
+  },
+  {
+    label: '儿童摄影',
+    buttonPos: 'top: 30%; right: 40%; background-color: red;'
+  },
+  {
+    label: '商业摄影',
+    buttonPos: 'bottom: 10px; left: 20%; background-color: green;',
+    size: 'width: 120px; height: 120px;'
+  },
+  {
+    label: '活动拍摄',
+    buttonPos: 'bottom: 10px; right: 30%; background-color: orange;'
+  },
+  {
+    label: '婚礼摄影',
+    buttonPos: 'top: 55%; left: 40%; background-color: purple;',
+    size: 'width: 120px; height: 120px;'
+  },
+  {
+    label: '产品摄影',
+    buttonPos: 'top: 60%; right: 10%; background-color: pink;'
+  },
+  {
+    label: '宠物摄影',
+    buttonPos: 'bottom: 27%; left: 10%; background-color: brown;'
+  },
+  {
+    label: 'COS摄影',
+    buttonPos: 'bottom: 50%; right: 10%; background-color: grey;',
+    size: 'width: 120px; height: 120px;'
+  },
+])
 
-// 地址输入框的响应式引用
-const addressInput = ref('')
+const emit = defineEmits<{
+  (e: 'type-selected', type: ServiceType): void
+}>()
 
-// 添加detail输入框的ref
-const detailInput = ref<HTMLInputElement | null>(null)
-
-const router = useRouter()
-const clickHandler = (e: Event) => {
-  e.preventDefault(); // 阻止默认的表单提交行为
-
-  // 获取detail输入框的值，添加默认空字符串防止undefined
-  const detailValue = detailInput.value ? detailInput.value.value : '';
-
-  router.push({
-    path: '/TradeStep2',
-    query: {
-      address: addressInput.value,
-      detail: detailValue
-    }
-  });
+const chooseType = (type: ServiceType) => {
+  console.log('选择服务类型：', type.label)
+  emit('type-selected', type)
 }
 </script>
 
-<template>
-  <div class="dp-wrap">
-    <div class="dp-container">
-      <div class="choose">
-        <p class="message">您想去哪?</p>
-        <p class="ask">请告诉我们您的具体位置，以便我们为您安排景点和人员</p>
-        <form class="dp-info" id="dpInfoForm" method="get" @submit.prevent="clickHandler">
-          <div class="areabox">
-            <el-input v-model="addressInput" placeholder="请输入您的详细地址"
-              :style="{ width: '100%', marginRight: `${prop.gap}px` }" />
-          </div>
-          <input ref="detailInput" class="detail" type="text" name="detail" placeholder="请输入补充信息（如门牌号等）">
-          <button type="submit" class="next-button">></button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-</template>
-
 <style scoped>
-.areabox {
-  display: flex;
-  align-items: center;
-  margin-bottom: 100px;
-}
-
-.dp-wrap {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding: 20px;
-}
-
-.dp-container {
-  background-color: #fff;
-  height: 500px;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 450px;
+.FirstStepContainer {
   position: relative;
-}
-
-.choose {
   width: 100%;
-  min-height: 400px;
+  height: 600px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: start;
 }
 
-.message {
-  text-align: center;
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: #333;
-}
-
-.ask {
-  text-align: center;
-  font-size: 15px;
-  color: #666;
-  margin-bottom: 30px;
-  line-height: 1.5;
-}
-
-.detail {
-  width: 80%;
-  margin-left: 30px;
-  padding: 12px;
-  font-size: 15px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-}
-
-.detail:focus {
-  border-color: #009dff;
-}
-
-.detail::placeholder {
-  color: #cbd5dc;
-}
-
-.next-button {
+.button-group button {
   position: absolute;
-  bottom: 30px;
-  right: 30px;
-  width: 56px;
-  height: 56px;
-  font-size: 32px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  border: none;
-  background-color: #009dff;
-  color: white;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 14px;
   cursor: pointer;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: bubble 0.8s ease-out forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.next-button:hover {
-  background-color: #007acc;
+.button-group button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 添加动画关键帧 */
+@keyframes bubble {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 </style>

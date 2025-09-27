@@ -127,7 +127,7 @@ const products = ref([
     description: '轻便稳定的专业摄影三脚架，适用于各种拍摄场景',
     detailedDescription: '这款专业三脚架采用碳纤维材质，重量轻但承重能力强，最大承重可达10kg。可调节高度设计，适应不同拍摄需求。配备云台，支持360度旋转，精确调整拍摄角度。',
     price: 899,
-    image: 'https://images.unsplash.com/photo-1548108230-395751c0b3cd?auto=format&fit=crop&w=400&q=80',
+    image: 'Banner/1.jpg',
     purchaseChannels: [
       { name: '官方商城', url: '#', description: '官方直供，品质保证' },
       { name: '京东', url: '#', description: '京东自营，快速配送' }
@@ -169,7 +169,7 @@ const products = ref([
     description: '基于深度学习的人像美化AI模型',
     detailedDescription: 'AI人像美化模型采用最新的深度学习技术，能够智能识别人像特征并进行美化处理。支持批量处理，保留原始细节的同时提升照片质量。适用于证件照、写真等多种场景。',
     price: 1299,
-    image: 'https://images.unsplash.com/photo-1677442135722-5f11e06a4e6d?auto=format&fit=crop&w=400&q=80',
+    image: 'Banner/1.jpg',
     purchaseChannels: [
       { name: 'AI模型市场', url: '#', description: '专业AI模型交易平台' },
       { name: '开发者官网', url: '#', description: '技术支持完善' }
@@ -183,7 +183,7 @@ const products = ref([
     description: '自动识别照片场景并优化参数的AI插件',
     detailedDescription: 'AI场景识别插件能够自动识别照片中的场景类型，如风景、人像、夜景等，并自动应用最佳处理参数。支持主流照片处理软件，大幅提升后期处理效率。',
     price: 899,
-    image: 'https://images.unsplash.com/photo-1677442135133-33d364e7d1e2?auto=format&fit=crop&w=400&q=80',
+    image: 'Banner/1.jpg',
     purchaseChannels: [
       { name: '插件市场', url: '#', description: '即装即用' },
       { name: '订阅服务', url: '#', description: '按月订阅，持续更新' }
@@ -197,7 +197,7 @@ const products = ref([
     description: '专业摄影背包，防水防震设计',
     detailedDescription: '便携式摄影背包采用防水材料制作，内部有专业防震设计，可容纳专业单反相机、镜头、闪光灯等设备。人体工学背带设计，长时间背负也不会感到疲劳。',
     price: 499,
-    image: 'https://images.unsplash.com/photo-1605902389651-7b505f4b7b6c?auto=format&fit=crop&w=400&q=80',
+    image: 'Banner/1.jpg',
     purchaseChannels: [
       { name: '官方商城', url: '#', description: '官方直供' },
       { name: '户外用品店', url: '#', description: '线下体验' }

@@ -17,7 +17,6 @@
   text-align: center;
   padding: 1.2rem 0;
   font-size: 15px;
-  margin-top: 2rem;
 }
 
 .certification {

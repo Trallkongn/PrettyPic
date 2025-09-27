@@ -2,80 +2,83 @@
   <!-- Header -->
   <HeaderComponent />
 
-  <main class="user-main">
-    <!-- 个人信息区域 -->
-    <section class="user-info">
-      <h2>个人信息</h2>
-      <div class="avatar-area">
-        <img class="avatar-img" :src="user.avatar" alt="用户头像" />
-        <input type="file" accept="image/*" class="avatar-upload" @change="onAvatarChange" />
-        <button class="avatar-btn" @click="triggerAvatarUpload">更换头像</button>
-      </div>
-      <div class="info-fields">
-        <div class="info-item">
-          <label>昵称：</label>
-          <input v-model="user.nickname" />
+  <div class="background">
+    <main class="user-main">
+      <!-- 个人信息区域 -->
+      <section class="user-info">
+        <h2>个人信息</h2>
+        <div class="avatar-area">
+          <img class="avatar-img" :src="user.avatar" alt="用户头像" />
+          <input type="file" accept="image/*" class="avatar-upload" @change="onAvatarChange" />
+          <button class="avatar-btn" @click="triggerAvatarUpload">更换头像</button>
         </div>
-        <div class="info-item">
-          <label>手机号：</label>
-          <input v-model="user.phone" />
+        <div class="info-fields">
+          <div class="info-item">
+            <label>昵称：</label>
+            <input v-model="user.nickname" />
+          </div>
+          <div class="info-item">
+            <label>手机号：</label>
+            <input v-model="user.phone" />
+          </div>
+          <div class="info-item">
+            <label>邮箱：</label>
+            <input v-model="user.email" />
+          </div>
+          <div class="info-item">
+            <label>实名认证：</label>
+            <span>{{ user.verified ? '已认证' : '未认证' }}</span>
+            <button style="margin-left: 5px;" v-if="!user.verified" @click="onVerify">去认证</button>
+          </div>
+          <!-- 添加管理员入口 -->
+          <div v-if="user.isAdmin" class="info-item">
+            <label>管理员入口：</label>
+            <button @click="goToAdminPage">进入管理页面</button>
+          </div>
         </div>
-        <div class="info-item">
-          <label>邮箱：</label>
-          <input v-model="user.email" />
-        </div>
-        <div class="info-item">
-          <label>实名认证：</label>
-          <span>{{ user.verified ? '已认证' : '未认证' }}</span>
-          <button style="margin-left: 5px;" v-if="!user.verified" @click="onVerify">去认证</button>
-        </div>
-        <!-- 添加管理员入口 -->
-        <div v-if="user.isAdmin" class="info-item">
-          <label>管理员入口：</label>
-          <button @click="goToAdminPage">进入管理页面</button>
-        </div>
-      </div>
-      <button class="save-btn" @click="onSave">保存修改</button>
-      <!-- 扩展接口：插槽或props -->
-    </section>
+        <button class="save-btn" @click="onSave">保存修改</button>
+        <!-- 扩展接口：插槽或props -->
+      </section>
 
-    <!-- 订单展示区 -->
-    <section class="user-orders">
-      <h2>我的订单</h2>
-      <div v-if="orders.length === 0" class="empty">暂无订单</div>
-      <div v-else class="order-list">
-        <div class="order-card" v-for="order in orders" :key="order.id">
-          <div>
-            <strong>订单号：</strong>{{ order.id }}
+      <!-- 订单展示区 -->
+      <section class="user-orders">
+        <h2>我的订单</h2>
+        <div v-if="orders.length === 0" class="empty">暂无订单</div>
+        <div v-else class="order-list">
+          <div class="order-card" v-for="order in orders" :key="order.id">
+            <div>
+              <strong>订单号：</strong>{{ order.id }}
+            </div>
+            <div>
+              <strong>服务：</strong>{{ order.service }}
+            </div>
+            <div>
+              <strong>状态：</strong>{{ order.status }}
+            </div>
+            <div>
+              <strong>下单时间：</strong>{{ order.date }}
+            </div>
+            <!-- 扩展接口：插槽或props -->
           </div>
-          <div>
-            <strong>服务：</strong>{{ order.service }}
-          </div>
-          <div>
-            <strong>状态：</strong>{{ order.status }}
-          </div>
-          <div>
-            <strong>下单时间：</strong>{{ order.date }}
-          </div>
-          <!-- 扩展接口：插槽或props -->
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 用户博客展示Grid -->
-    <section class="user-blogs">
-      <h2>我的博客</h2>
-      <div v-if="blogs.length === 0" class="empty">暂无博客</div>
-      <div v-else class="blog-grid">
-        <div class="blog-card" v-for="(blog, idx) in blogs" :key="idx">
-          <img :src="blog.img" :alt="blog.title" />
-          <h4>{{ blog.title }}</h4>
-          <p>{{ blog.summary }}</p>
-          <!-- 扩展接口：插槽或props -->
+      <!-- 用户博客展示Grid -->
+      <section class="user-blogs">
+        <h2>我的博客</h2>
+        <div v-if="blogs.length === 0" class="empty">暂无博客</div>
+        <div v-else class="blog-grid">
+          <div class="blog-card" v-for="(blog, idx) in blogs" :key="idx">
+            <img :src="blog.img" :alt="blog.title" />
+            <h4>{{ blog.title }}</h4>
+            <p>{{ blog.summary }}</p>
+            <!-- 扩展接口：插槽或props -->
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
+
 
   <!-- Footer -->
   <FooterComponent />
@@ -140,20 +143,35 @@ const blogs = ref([
 </script>
 
 <style scoped>
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url('/XI.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
 .user-main {
   max-width: 1100px;
-  margin: 2rem auto 0 auto;
   padding: 0 1rem 2rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  border-radius: 12px;
+  padding: 2rem;
 }
 
 .user-info {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.75);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
   padding: 2rem 2.5rem;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .user-info h2 {
@@ -253,10 +271,12 @@ const blogs = ref([
 }
 
 .user-orders {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
   padding: 2rem 2.5rem;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .user-orders h2 {
@@ -271,13 +291,15 @@ const blogs = ref([
 }
 
 .order-card {
-  background: #fafafa;
+  background: rgba(250, 250, 250, 0.9);
   border-radius: 8px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
   padding: 1rem 1.5rem;
   min-width: 220px;
   flex: 1 1 260px;
   margin-bottom: 0.5rem;
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .empty {
@@ -287,10 +309,12 @@ const blogs = ref([
 }
 
 .user-blogs {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.75);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
   padding: 2rem 2.5rem;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .user-blogs h2 {
@@ -305,7 +329,7 @@ const blogs = ref([
 }
 
 .blog-card {
-  background: #fafafa;
+  background: rgba(250, 250, 250, 0.9);
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   padding: 1.2rem;
@@ -313,6 +337,8 @@ const blogs = ref([
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .blog-card img {
